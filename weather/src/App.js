@@ -4,40 +4,43 @@ import axios from 'axios';
 
 const App = ()  => {
 
-  const [coordinatesX, setCoordinatesX] = useState([]);
-  const [coordinatesY, setCoordinatesY] = useState([]);
-  const [city, setCity] = useState([]);
-  const [state, setState] = useState([]);
-  const [county, setCounty] = useState([]);
+  const [coordinatesXResults, setCoordinatesX] = useState([]);
+  const [coordinatesYResults, setCoordinatesY] = useState([]);
+  const [cityResults, setCity] = useState([]);
+  const [stateResults, setState] = useState([]);
+  const [countyResults, setCounty] = useState([]);
+  const [weatherResults, setWeather] = useState([]);
   
 
  const fetchData = () =>{
    const longLatCityStateApi = 'https://api.weather.gov/points/33.9462,-84.3346';
    const countyApi = 'https://api.weather.gov/zones/county/GAC089';
+   const weatherApi = 'https://api.weather.gov/gridpoints/FFC/51,95/forecast';
 
    const getlongLatCityState = axios.get(longLatCityStateApi);
    const getCounty = axios.get(countyApi);
+   const getWeather = axios.get(weatherApi);
 
-   axios.all([getlongLatCityState, getCounty]).then(
+   axios.all([getlongLatCityState, getCounty, getWeather]).then(
      axios.spread((...allData) =>{
 
       const xCoordinates = allData[0].data.geometry.coordinates[0];
       const yCoordinates = allData[0].data.geometry.coordinates[1];
       const city = allData[0].data.properties.relativeLocation.properties.city;
       const state = allData[0].data.properties.relativeLocation.properties.state;
-
-
-      const countyAPI = allData[1].data.properties.name;
-
+      const county = allData[1].data.properties.name;
+      const weather = allData[2].data.properties.periods[0].temperature;
       // console.log('AllLongLatCityState DATA', longLatCityStateAPI);
       // console.log('ALLCounty DATA', countyAPI);
+      // console.log(getWeather);
+      // console.log('WEATHER', weather);
 
       setCoordinatesX(xCoordinates);
       setCoordinatesY(yCoordinates);
       setCity(city);
       setState(state);
-
-      setCounty(countyAPI);
+      setCounty(county);
+      setWeather(weather);
      })
    )
  }
@@ -48,24 +51,14 @@ useEffect(()=>{
 
   return (
     <div className="App">
-         {/* X COORDINATES:<span style={{color: "blue"}}>{items.geometry.coordinates[0]}</span> <br/>
-                Y COORDINATES: <span style={{color: "blue"}}> {items.geometry.coordinates[1]}</span> 
-            
-              <div>
+        
+              Coordinates X: {coordinatesXResults}<br />
+              Coordinates Y: {coordinatesYResults}<br />
+              City: {cityResults}<br />
+              State: {stateResults}< br />
 
-                City: <span style={{color: "blue"}}>{items.properties.relativeLocation.properties.city}</span><br/>
-                State: <span style={{color: "blue"}}>{items.properties.relativeLocation.properties.state}</span><br/>
-                County: <span style={{color: "blue"}}>{items.properties.name}</span>
-
-              </div> */}
-
-              Coordinates X: {coordinatesX}<br />
-              Coordinates Y: {coordinatesY}<br />
-              City: {city}<br />
-              State: {state}< br />
-
-              County: {county}
-
+              County: {countyResults}< br />
+              Weather: {weatherResults}
 
     </div>
   );
