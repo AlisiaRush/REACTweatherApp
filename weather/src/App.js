@@ -49,21 +49,23 @@ useEffect(()=>{
     <div className="App">
 
               {/* Results */}
-                <div>
-              Results:<br />
-              Longitude: {longitude}<br />
-              Latutude : {latitude}<br />
-              City: {cityResults}<br />
-              State: {stateResults}< br />
-
-              County: {countyResults}< br />
-              Weather: {weatherResults}
-              </div>
-              
-            
+              <div className="listItems">
+              <h2>Results</h2>
+              <ul>
+                <li>Longitude: <span className="highlight">{longitude}</span></li>
+                <li>Latutude : <span className="highlight">{latitude}</span></li>
+                <li>City: <span className="highlight">{cityResults}</span></li>
+                <li>State: <span className="highlight">{stateResults}</span></li>
+                <li>County: <span className="highlight">{countyResults}</span></li>
+                <li>Weather: <span className="highlight">{weatherResults}</span></li>
+              </ul>
+            </div>
               {/* form */}
-<form>
-          
+          <form style={{textAlign: "left"}}>
+        <p><em><strong>Enter the following Coordinates:</strong></em><br />
+                Longitude: 33.9462<br />
+                Latitude: -84.3346
+              </p>   
 
               Longitude:
               <input type="text"
@@ -78,17 +80,9 @@ useEffect(()=>{
               </input>
               </form>
 
-              <p>Enter the following Coordinates:<br />
-                Longitude: 33.9462<br />
-                Latitude: -84.3346
-              </p>
-            <button
-            onClick = {()=>{
-              fetchData();
-            }}>
-              Submit
-            </button>
-            
+            <div style={{textAlign:"left"}}>
+            <button onClick = {()=>{fetchData();}}>Submit</button>
+            </div>
     </div>
   );
 }

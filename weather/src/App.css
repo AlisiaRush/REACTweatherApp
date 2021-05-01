@@ -1,5 +1,8 @@
 .App {
-  text-align: center;
+  margin:0 auto;
+  padding:20px;
+  background:rgb(137, 204, 235);
+  width:500px;
 }
 
 .App-logo {
@@ -26,6 +29,30 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.listItems ul{
+  background:#000;
+  color:#61dafb;
+  padding:10px 5px;
+}
+
+.listItems ul li{
+  display:inline;
+  margin-right:20px;
+}
+
+button{
+  margin-top:20px;
+  background:#000;
+  color:#61dafb;
+  border:none;
+  border-radius:3px;
+  padding:5px 10px;
+}
+
+span.highlight{
+  color:rgb(116, 238, 116);
 }
 
 @keyframes App-logo-spin {
