@@ -1,83 +1,74 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import axios from 'axios';
 
-class App extends React.Component {
+const App = ()  => {
 
-    /**
-     * constructor
-     *
-     * @object  @props  parent props
-     * @object  @state  component state
-     */
-    constructor(props) {
+  const [coordinatesX, setCoordinatesX] = useState([]);
+  const [coordinatesY, setCoordinatesY] = useState([]);
+  const [city, setCity] = useState([]);
+  const [state, setState] = useState([]);
+  const [county, setCounty] = useState([]);
+  
 
-        super(props);
+ const fetchData = () =>{
+   const longLatCityStateApi = 'https://api.weather.gov/points/33.9462,-84.3346';
+   const countyApi = 'https://api.weather.gov/zones/county/GAC089';
 
-        this.state = {
-            items: [],
-            isLoaded: false
-        }
+   const getlongLatCityState = axios.get(longLatCityStateApi);
+   const getCounty = axios.get(countyApi);
 
-    }
+   axios.all([getlongLatCityState, getCounty]).then(
+     axios.spread((...allData) =>{
 
-    componentDidMount() {
+      const xCoordinates = allData[0].data.geometry.coordinates[0];
+      const yCoordinates = allData[0].data.geometry.coordinates[1];
+      const city = allData[0].data.properties.relativeLocation.properties.city;
+      const state = allData[0].data.properties.relativeLocation.properties.state;
 
-        fetch('https://api.weather.gov/points/33.9462,-84.3346')
-      
-            .then(res => res.json())
-            .then(json => {
-              console.log(`JSON Result: `, json);
-              this.setState({
-                  items: json,
-                  isLoaded: true, 
-              })
-            })
-            .catch((err) => {
-                console.log(err);
-            });
 
-    }
+      const countyAPI = allData[1].data.properties.name;
 
-    // getCounties(){
-    //   fetch('https://api.weather.gov/zones/county/GAC089')
-      
-    //         .then(res => res.json())
-    //         .then(json => {
-    //           console.log(`JSON Result for County: `, json);
-    //           this.setState({
-    //               items: json,
-    //               isLoaded: true, 
-    //           })
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });  
-    // }
-    
-    render() {
+      // console.log('AllLongLatCityState DATA', longLatCityStateAPI);
+      // console.log('ALLCounty DATA', countyAPI);
 
-        const { isLoaded, items } = this.state;
+      setCoordinatesX(xCoordinates);
+      setCoordinatesY(yCoordinates);
+      setCity(city);
+      setState(state);
 
-        if (!isLoaded)
-            return <div>Loading...</div>;
+      setCounty(countyAPI);
+     })
+   )
+ }
 
-        return (
-            <div className="App">
-              
-                X COORDINATES:<span style={{color: "blue"}}>{items.geometry.coordinates[0]}</span> <br/>
+useEffect(()=>{
+  fetchData()
+}, []);
+
+  return (
+    <div className="App">
+         {/* X COORDINATES:<span style={{color: "blue"}}>{items.geometry.coordinates[0]}</span> <br/>
                 Y COORDINATES: <span style={{color: "blue"}}> {items.geometry.coordinates[1]}</span> 
             
               <div>
 
-                City: {items.properties.relativeLocation.properties.city}<br/>
-                State: {items.properties.relativeLocation.properties.state}<br/>
-                County: {items.properties.name}
+                City: <span style={{color: "blue"}}>{items.properties.relativeLocation.properties.city}</span><br/>
+                State: <span style={{color: "blue"}}>{items.properties.relativeLocation.properties.state}</span><br/>
+                County: <span style={{color: "blue"}}>{items.properties.name}</span>
 
-              </div>
-            </div>
-        );
+              </div> */}
 
-    }
+              Coordinates X: {coordinatesX}<br />
+              Coordinates Y: {coordinatesY}<br />
+              City: {city}<br />
+              State: {state}< br />
 
+              County: {county}
+
+
+    </div>
+  );
 }
 
 export default App;
