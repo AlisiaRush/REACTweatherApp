@@ -53,7 +53,7 @@ useEffect(()=>{
               <h2>Results</h2>
               <ul>
                 <li>Longitude: <span className="highlight">{longitude}</span></li>
-                <li>Latutude : <span className="highlight">{latitude}</span></li>
+                <li>Latitude : <span className="highlight">{latitude}</span></li>
                 <li>City: <span className="highlight">{cityResults}</span></li>
                 <li>State: <span className="highlight">{stateResults}</span></li>
                 <li>County: <span className="highlight">{countyResults}</span></li>
