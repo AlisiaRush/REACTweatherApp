@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import './App.css';
 import axios from 'axios';
 
@@ -41,10 +41,6 @@ const App = ()  => {
    )
  }
 
-useEffect(()=>{
-  
-}, []);
-
   return (
     <div className="App">
 
@@ -71,7 +67,7 @@ useEffect(()=>{
               <input type="text"
               value ={longitude}
               onChange={(e) => setCoordinatesX(e.target.value)}>
-              </input>
+              </input> 
 
               Latitude:
               <input type="text"
