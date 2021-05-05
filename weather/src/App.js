@@ -33,6 +33,11 @@ const fetchData = () =>{
       const county = allData[1].data.properties.name;
       const weather = allData[2].data.properties.periods[0].temperature;
 
+  // console.log('AllLongLatCityState DATA', longLatCityStateAPI);
+  //     console.log('ALLCounty DATA', countyAPI);
+      console.log(getWeather);
+      console.log('WEATHER', weather);
+
       //Set Data to be used within DOM elements
       setCoordinatesX(latitude);
       setCoordinatesY(longitude);
@@ -40,7 +45,7 @@ const fetchData = () =>{
       setState(state);
       setCounty(county);
       setWeather(weather);
-     }))
+     }));
 }
 
  //Display HTML within browser using return value 
@@ -56,8 +61,10 @@ const fetchData = () =>{
               <li>City: <span className="highlight">{cityResults}</span></li>
               <li>State: <span className="highlight">{stateResults}</span></li>
               <li>County: <span className="highlight">{countyResults}</span></li>
-              <li>Weather: <span className="highlight">{weatherResults}</span></li>
+              <li>Weather: <span className="highlight" data-testid="fetch-load">{weatherResults}</span></li>
             </ul>
+         
+      
           </div>
             {/* form */}
         <form style={{textAlign: "left"}}>
