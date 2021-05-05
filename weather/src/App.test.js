@@ -1,6 +1,5 @@
 import React from "react";
 import {unmountComponentAtNode } from "react-dom";
-import { act } from "react-dom/test-utils";
 import App from './App';
 import {fireEvent, render, waitFor} from '@testing-library/react';
 
